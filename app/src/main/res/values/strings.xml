@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">PhrasesGenerator</string>
+    <string name="hello_user">Clique no botão abaixo e veja uma mensagem legal!</string>
+    <string name="button_name">Gerar Mensagem</string>
+    <string name="text_view">...</string>
+    <string name="albertEinstein_0">No meio da dificuldade encontra-se a oportunidade. - Albert Einstein</string>
+    <string name="winstonChurchill_1">O sucesso é ir de fracasso em fracasso sem perder entusiasmo. - Winston Churchill</string>
+    <string name="charlesChaplin_2">A persistência é o caminho do êxito. - Charles Chaplin</string>
+    <string name="charliBrownJr_3">Faço da dificuldade a minha motivação. - Charlie Brown Jr</string>
+    <string name="martinLutherKing_4">O que me preocupa não é o grito dos maus. É o silêncio dos bons. - Martin Luther King</string>
+</resources>
