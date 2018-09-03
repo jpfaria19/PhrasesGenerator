@@ -1,4 +1,4 @@
-package infnet.gads.joaolfaria.phrasesgenerator;
+package infnet.gads.joaolfaria.phrasesgenerator.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import java.util.Random;
+
+import infnet.gads.joaolfaria.phrasesgenerator.R;
 
 public class MainActivity extends AppCompatActivity {
 
