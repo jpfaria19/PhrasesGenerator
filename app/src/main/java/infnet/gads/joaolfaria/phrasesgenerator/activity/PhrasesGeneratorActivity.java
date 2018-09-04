@@ -54,8 +54,6 @@ public class PhrasesGeneratorActivity extends AppCompatActivity {
         Intent toList = new Intent(this, ListActivity.class);
         startActivity(toList);
     }
-
-
     // ***** ALERTA NA TELA *****
 
         /*AlertDialog alertDialog;
