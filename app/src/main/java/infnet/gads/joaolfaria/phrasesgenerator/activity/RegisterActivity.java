@@ -1,13 +1,23 @@
 package infnet.gads.joaolfaria.phrasesgenerator.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+
+import infnet.gads.joaolfaria.phrasesgenerator.DAO.ConfiguracaoFirebase;
 import infnet.gads.joaolfaria.phrasesgenerator.R;
 import infnet.gads.joaolfaria.phrasesgenerator.domain.User;
 
@@ -16,6 +26,9 @@ public class RegisterActivity extends AppCompatActivity {
     EditText edtName, edtEmail, edtPassword, edtConfirmPassword, edtCPF;
     Boolean flag = false;
     User user = new User();
+    FirebaseAuth auth;
+
+    String TAG = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +42,8 @@ public class RegisterActivity extends AppCompatActivity {
         edtPassword = findViewById(R.id.edtPassword);
         edtConfirmPassword = findViewById(R.id.edtConfirmPassword);
         edtCPF = findViewById(R.id.edtCPF);
+
+        auth = ConfiguracaoFirebase.getFirebaseAuth();
     }
 
     public void clearForm(View view) {
@@ -74,18 +89,48 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void saveContact(View view) {
         validationForm();
-        if (!flag){
+        if (!flag) {
             user.setName(edtName.getText().toString());
             user.setEmail(edtEmail.getText().toString());
             user.setPassword(edtPassword.getText().toString());
             user.setConfirmPassword(edtConfirmPassword.getText().toString());
             user.setCPF(edtCPF.getText().toString());
 
-            //TODO: IMPLEMENTAR A LOGICA PARA SALVAR EM ARQUIVO TXT
 
-            Intent toLogin = new Intent(this, MainActivity.class);
-            startActivity(toLogin);
+            auth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
+                    .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(RegisterActivity.this, "Usuário criado com sucesso.", Toast.LENGTH_LONG).show();
+
+                                //TODO: IMPLEMENTAR A LOGICA PARA SALVAR EM ARQUIVO TXT
+
+                                //insereUsuario(user);
+
+                                /*Intent toLogin = new Intent(RegisterActivity.this, MainActivity.class);
+                                startActivity(toLogin);*/
+                            } else {
+
+                                String erroExecucao = "";
+
+                                try {
+                                    throw task.getException();
+                                } catch (FirebaseAuthWeakPasswordException e) {
+                                    erroExecucao = "Digite uma senha mais forte, contendo no mínimo 8 caracteres e que contenha letras e números";
+                                    Log.v(TAG, e.toString());
+                                } catch (FirebaseAuthUserCollisionException e) {
+                                    erroExecucao = "Esse e-mail já está cadastrado!";
+                                    Log.v(TAG, e.toString());
+                                } catch (Exception e) {
+                                    erroExecucao = "Erro ao caddastrar um novo usuário";
+                                    Log.v(TAG, e.toString());
+                                }
+
+                                Toast.makeText(RegisterActivity.this, erroExecucao, Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
         }
-
     }
 }
