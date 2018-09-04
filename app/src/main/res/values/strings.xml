@@ -8,4 +8,15 @@
     <string name="charlesChaplin_2">A persistência é o caminho do êxito. - Charles Chaplin</string>
     <string name="charliBrownJr_3">Faço da dificuldade a minha motivação. - Charlie Brown Jr</string>
     <string name="martinLutherKing_4">O que me preocupa não é o grito dos maus. É o silêncio dos bons. - Martin Luther King</string>
+    <string name="full_name">Nome Completo</string>
+    <string name="email">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="confirm_password">Confirmar Senha</string>
+    <string name="cpf">CPF</string>
+    <string name="save">SALVAR</string>
+    <string name="clear">LIMPAR</string>
+    <string name="view_all_users">VER USUÁRIOS CADASTRADOS</string>
+    <string name="login">Login(E-mail)</string>
+    <string name="loginSubmit">ENTRAR</string>
+    <string name="registerNewUser">CADASTRAR</string>
 </resources>
