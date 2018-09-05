@@ -1,5 +1,7 @@
 package infnet.gads.joaolfaria.phrasesgenerator.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
+import java.io.FileOutputStream;
+
 import infnet.gads.joaolfaria.phrasesgenerator.DAO.ConfiguracaoFirebase;
 import infnet.gads.joaolfaria.phrasesgenerator.R;
 import infnet.gads.joaolfaria.phrasesgenerator.domain.User;
@@ -27,8 +31,10 @@ public class RegisterActivity extends AppCompatActivity {
     Boolean flag = false;
     User user = new User();
     FirebaseAuth auth;
-
     String TAG = "";
+    String fileName = "listUsers.txt";
+    FileOutputStream outputStream;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,19 +103,18 @@ public class RegisterActivity extends AppCompatActivity {
             user.setCPF(edtCPF.getText().toString());
 
 
-            auth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
+            auth.createUserWithEmailAndPassword(user.getEmail().toString(), user.getPassword().toString())
                     .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(RegisterActivity.this, "Usuário criado com sucesso.", Toast.LENGTH_LONG).show();
+                                insereUsuario();
 
-                                //TODO: IMPLEMENTAR A LOGICA PARA SALVAR EM ARQUIVO TXT
+                                Toast.makeText(RegisterActivity.this, "Usuário cadastrado com sucesso.", Toast.LENGTH_LONG).show();
 
-                                //insereUsuario(user);
-
-                                /*Intent toLogin = new Intent(RegisterActivity.this, MainActivity.class);
-                                startActivity(toLogin);*/
+                                Intent toLogin = new Intent(RegisterActivity.this, MainActivity.class);
+                                startActivity(toLogin);
+                                finish();
                             } else {
 
                                 String erroExecucao = "";
@@ -131,6 +136,42 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         }
                     });
+        }
+    }
+
+    private void insereUsuario(){
+        try {
+            outputStream = openFileOutput(String.valueOf(fileName), Context.MODE_APPEND | Context.MODE_PRIVATE);
+
+            User usuario = new User(edtName.getText().toString(), edtEmail.getText().toString(), edtPassword.getText().toString(), edtConfirmPassword.getText().toString(), edtCPF.getText().toString());
+            usuario.setName(edtName.getText().toString());
+            usuario.setEmail(edtEmail.getText().toString());
+            usuario.setPassword(edtPassword.getText().toString());
+            usuario.setConfirmPassword(edtConfirmPassword.getText().toString());
+            usuario.setCPF(edtCPF.getText().toString());
+
+
+            String separetor = "#";
+
+            outputStream.write(separetor.getBytes());
+            outputStream.write("\n".getBytes());
+            outputStream.write(usuario.getName().getBytes());
+            outputStream.write("\n".getBytes());
+            outputStream.write(usuario.getEmail().getBytes());
+            outputStream.write("\n".getBytes());
+            outputStream.write(usuario.getPassword().getBytes());
+            outputStream.write("\n".getBytes());
+            outputStream.write(usuario.getConfirmPassword().getBytes());
+            outputStream.write("\n".getBytes());
+            outputStream.write(usuario.getCPF().getBytes());
+            outputStream.write("\n".getBytes());
+            outputStream.close();
+
+            Toast.makeText(this, "Registro salvo com sucesso", Toast.LENGTH_LONG).show();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

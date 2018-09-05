@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Random;
 
@@ -51,8 +52,15 @@ public class PhrasesGeneratorActivity extends AppCompatActivity {
     }
 
     public void viewAllContacts(View view) {
-        Intent toList = new Intent(this, ListActivity.class);
+        Intent toList = new Intent(PhrasesGeneratorActivity.this, ListActivity.class);
         startActivity(toList);
+        finish();
+    }
+
+    public void logOff(View view){
+        FirebaseAuth.getInstance().signOut();
+        Intent toLoginAgain = new Intent(PhrasesGeneratorActivity.this, MainActivity.class);
+        startActivity(toLoginAgain);
     }
     // ***** ALERTA NA TELA *****
 

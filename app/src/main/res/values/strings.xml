@@ -19,4 +19,5 @@
     <string name="login">Login(E-mail)</string>
     <string name="loginSubmit">ENTRAR</string>
     <string name="registerNewUser">CADASTRAR</string>
+    <string name="logoff">Deslogar</string>
 </resources>

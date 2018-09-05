@@ -46,9 +46,20 @@
         android:layout_below="@id/mensagem"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="40dp"
         android:onClick="viewAllContacts"
         android:text="@string/view_all_users" />
+
+    <Button
+        android:id="@+id/btnLogoff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mensagem"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="100dp"
+        android:onClick="logOff"
+        android:text="@string/logoff" />
 
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"

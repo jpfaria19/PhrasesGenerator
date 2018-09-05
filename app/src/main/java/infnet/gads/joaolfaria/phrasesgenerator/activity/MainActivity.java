@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     AdView adView;
     FirebaseAuth auth;
     User user = new User();
+    String TAG = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,19 +51,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void submitLogin(View view) {
 
-        String email = "jp@test.com";
-        String password = "1Pdu!m";
-
         //TODO: LOGICA PARA LOGAR O USUARIO E DIRECIONAR PARA A PÁGINA DE FRASES
-
 
         if (userLogado()) {
 
-            Intent toPhrases = new Intent(this, PhrasesGeneratorActivity.class);
+            Intent toPhrases = new Intent(MainActivity.this, PhrasesGeneratorActivity.class);
             startActivity(toPhrases);
+            finish();
 
+        } else if (edtLogin.getText().toString().equals("") && edtLoginPassword.getText().toString().equals("")) {
+            Toast.makeText(MainActivity.this, "Login e Senha devem ser preenchidos.", Toast.LENGTH_LONG).show();
         } else {
-            auth.signInWithEmailAndPassword(email, password)
+            auth.signInWithEmailAndPassword(user.getEmail(), user.getPassword())
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -72,7 +74,13 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Falha no login", Toast.LENGTH_LONG).show();
                             }
                         }
-                    });
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(MainActivity.this, "Erro ao tentar logar.", Toast.LENGTH_LONG).show();
+                    Log.v(TAG, "ERRO: " + e);
+                }
+            });
         }
     }
 
