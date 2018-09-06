@@ -16,6 +16,8 @@ import infnet.gads.joaolfaria.phrasesgenerator.domain.User;
 
 public class UserAdapter extends RecyclerView.Adapter {
 
+    //TODO: RESOLVER PROBLEMA QUANDO VOLTA PARA A LISTA E A MESMA FICA SE DUPLICANDO.
+
     List<User> usuarios;
 
     public UserAdapter(List<User> users) {

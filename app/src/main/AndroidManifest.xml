@@ -21,10 +21,13 @@
         <activity
             android:name=".activity.RegisterActivity"
             android:parentActivityName=".activity.MainActivity" />
+
         <activity android:name=".activity.PhrasesGeneratorActivity" />
+
         <activity android:name=".activity.ListActivity"
             android:parentActivityName=".activity.PhrasesGeneratorActivity"
             android:noHistory="true"/>
+
         <activity android:name=".activity.DetailsUserActivity"
             android:parentActivityName=".activity.PhrasesGeneratorActivity"/>
     </application>

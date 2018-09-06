@@ -167,8 +167,6 @@ public class RegisterActivity extends AppCompatActivity {
             outputStream.write("\n".getBytes());
             outputStream.close();
 
-            Toast.makeText(this, "Registro salvo com sucesso", Toast.LENGTH_LONG).show();
-
 
         } catch (Exception e) {
             e.printStackTrace();
