@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("Login");
 
+
         edtLogin = findViewById(R.id.edtLogin);
         edtLoginPassword = findViewById(R.id.edtLoginPassword);
 
@@ -73,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
             });
         }
-
     }
 
     private void validarLogin() {

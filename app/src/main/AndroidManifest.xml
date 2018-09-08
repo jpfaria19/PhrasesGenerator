@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="infnet.gads.joaolfaria.phrasesgenerator">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,16 +21,19 @@
         </activity>
         <activity
             android:name=".activity.RegisterActivity"
-            android:parentActivityName=".activity.MainActivity" />
+            android:parentActivityName=".activity.MainActivity"
+            tools:targetApi="jelly_bean" />
 
         <activity android:name=".activity.PhrasesGeneratorActivity" />
 
         <activity android:name=".activity.ListActivity"
             android:parentActivityName=".activity.PhrasesGeneratorActivity"
-            android:noHistory="true"/>
+            android:noHistory="true"
+            tools:targetApi="jelly_bean" />
 
         <activity android:name=".activity.DetailsUserActivity"
-            android:parentActivityName=".activity.PhrasesGeneratorActivity"/>
+            android:parentActivityName=".activity.PhrasesGeneratorActivity"
+            tools:targetApi="jelly_bean" />
     </application>
 
 </manifest>

@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import infnet.gads.joaolfaria.phrasesgenerator.DAO.ConfiguracaoFirebase;
 import infnet.gads.joaolfaria.phrasesgenerator.R;
 import infnet.gads.joaolfaria.phrasesgenerator.domain.User;
+import infnet.gads.joaolfaria.phrasesgenerator.util.MaskEditUtil;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -48,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         edtPassword = findViewById(R.id.edtPassword);
         edtConfirmPassword = findViewById(R.id.edtConfirmPassword);
         edtCPF = findViewById(R.id.edtCPF);
+        edtCPF.addTextChangedListener(MaskEditUtil.mask(edtCPF, MaskEditUtil.FORMAT_CPF));
 
         auth = ConfiguracaoFirebase.getFirebaseAuth();
     }
@@ -160,8 +162,6 @@ public class RegisterActivity extends AppCompatActivity {
             outputStream.write(usuario.getEmail().getBytes());
             outputStream.write("\n".getBytes());
             outputStream.write(usuario.getPassword().getBytes());
-            outputStream.write("\n".getBytes());
-            outputStream.write(usuario.getConfirmPassword().getBytes());
             outputStream.write("\n".getBytes());
             outputStream.write(usuario.getCPF().getBytes());
             outputStream.write("\n".getBytes());
